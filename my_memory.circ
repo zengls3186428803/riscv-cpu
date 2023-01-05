@@ -698,9 +698,9 @@
     <wire from="(990,320)" to="(1130,320)"/>
     <wire from="(990,320)" to="(990,460)"/>
   </circuit>
-  <circuit name="memery_1x1_1">
+  <circuit name="memery_1x1_1bit">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="memery_1x1_1"/>
+    <a name="circuit" val="memery_1x1_1bit"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <comp lib="0" loc="(1380,290)" name="Pin">
@@ -768,9 +768,9 @@
     <wire from="(840,50)" to="(840,280)"/>
     <wire from="(870,290)" to="(1170,290)"/>
   </circuit>
-  <circuit name="memery_1x1_1_complete">
+  <circuit name="memery_1x1_1bit_complete">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="memery_1x1_1_complete"/>
+    <a name="circuit" val="memery_1x1_1bit_complete"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <comp lib="0" loc="(1100,380)" name="Pin">
@@ -829,7 +829,7 @@
       <a name="inputs" val="3"/>
     </comp>
     <comp lib="1" loc="(340,520)" name="AND Gate"/>
-    <comp loc="(810,380)" name="memery_1x1_1"/>
+    <comp loc="(810,380)" name="memery_1x1_1bit"/>
     <wire from="(180,130)" to="(280,130)"/>
     <wire from="(180,190)" to="(220,190)"/>
     <wire from="(180,250)" to="(210,250)"/>
@@ -893,9 +893,9 @@
     <wire from="(590,120)" to="(590,380)"/>
     <wire from="(810,380)" to="(1100,380)"/>
   </circuit>
-  <circuit name="memery_2x2_1">
+  <circuit name="memery_2x2_1bit">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="memery_2x2_1"/>
+    <a name="circuit" val="memery_2x2_1bit"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <comp lib="0" loc="(1490,40)" name="Pin">
@@ -947,48 +947,48 @@
       <a name="appearance" val="NewPins"/>
       <a name="label" val="Col_1"/>
     </comp>
-    <comp loc="(1350,710)" name="memery_1x1_1_complete"/>
-    <comp loc="(1360,460)" name="memery_1x1_1_complete"/>
-    <comp loc="(760,460)" name="memery_1x1_1_complete"/>
-    <comp loc="(760,710)" name="memery_1x1_1_complete"/>
+    <comp loc="(1360,460)" name="memery_1x1_1bit_complete"/>
+    <comp loc="(1360,710)" name="memery_1x1_1bit_complete"/>
+    <comp loc="(760,460)" name="memery_1x1_1bit_complete"/>
+    <comp loc="(760,710)" name="memery_1x1_1bit_complete"/>
     <wire from="(1020,270)" to="(1020,560)"/>
     <wire from="(1020,270)" to="(1530,270)"/>
     <wire from="(1020,560)" to="(1020,810)"/>
     <wire from="(1020,560)" to="(1140,560)"/>
-    <wire from="(1020,810)" to="(1130,810)"/>
+    <wire from="(1020,810)" to="(1140,810)"/>
     <wire from="(1040,220)" to="(1040,540)"/>
     <wire from="(1040,220)" to="(1530,220)"/>
     <wire from="(1040,540)" to="(1040,790)"/>
     <wire from="(1040,540)" to="(1140,540)"/>
-    <wire from="(1040,790)" to="(1130,790)"/>
+    <wire from="(1040,790)" to="(1140,790)"/>
     <wire from="(1060,170)" to="(1060,520)"/>
     <wire from="(1060,170)" to="(1530,170)"/>
     <wire from="(1060,520)" to="(1060,770)"/>
     <wire from="(1060,520)" to="(1140,520)"/>
-    <wire from="(1060,770)" to="(1130,770)"/>
+    <wire from="(1060,770)" to="(1140,770)"/>
     <wire from="(1080,130)" to="(1080,500)"/>
     <wire from="(1080,130)" to="(1530,130)"/>
     <wire from="(1080,500)" to="(1080,750)"/>
     <wire from="(1080,500)" to="(1140,500)"/>
-    <wire from="(1080,750)" to="(1130,750)"/>
+    <wire from="(1080,750)" to="(1140,750)"/>
     <wire from="(1100,100)" to="(1100,480)"/>
     <wire from="(1100,100)" to="(1530,100)"/>
     <wire from="(1100,480)" to="(1100,730)"/>
     <wire from="(1100,480)" to="(1140,480)"/>
-    <wire from="(1100,730)" to="(1130,730)"/>
+    <wire from="(1100,730)" to="(1140,730)"/>
     <wire from="(1120,460)" to="(1120,710)"/>
     <wire from="(1120,460)" to="(1140,460)"/>
     <wire from="(1120,60)" to="(1120,460)"/>
     <wire from="(1120,60)" to="(1520,60)"/>
-    <wire from="(1120,710)" to="(1130,710)"/>
+    <wire from="(1120,710)" to="(1140,710)"/>
     <wire from="(1130,600)" to="(1130,660)"/>
     <wire from="(1130,600)" to="(1140,600)"/>
     <wire from="(1130,660)" to="(1470,660)"/>
-    <wire from="(1130,850)" to="(1130,870)"/>
-    <wire from="(1130,870)" to="(1130,920)"/>
+    <wire from="(1130,850)" to="(1130,920)"/>
+    <wire from="(1130,850)" to="(1140,850)"/>
     <wire from="(1130,920)" to="(1610,920)"/>
-    <wire from="(1350,710)" to="(1370,710)"/>
     <wire from="(1360,460)" to="(1370,460)"/>
+    <wire from="(1360,710)" to="(1370,710)"/>
     <wire from="(1370,40)" to="(1370,460)"/>
     <wire from="(1370,40)" to="(1490,40)"/>
     <wire from="(1370,460)" to="(1370,710)"/>
@@ -1057,12 +1057,14 @@
     <wire from="(850,1090)" to="(910,1090)"/>
     <wire from="(910,10)" to="(910,620)"/>
     <wire from="(910,620)" to="(1140,620)"/>
-    <wire from="(910,620)" to="(910,1090)"/>
+    <wire from="(910,620)" to="(910,870)"/>
+    <wire from="(910,870)" to="(1140,870)"/>
+    <wire from="(910,870)" to="(910,1090)"/>
     <wire from="(990,320)" to="(1530,320)"/>
     <wire from="(990,320)" to="(990,580)"/>
     <wire from="(990,580)" to="(1140,580)"/>
     <wire from="(990,580)" to="(990,830)"/>
-    <wire from="(990,830)" to="(1130,830)"/>
+    <wire from="(990,830)" to="(1140,830)"/>
   </circuit>
   <circuit name="memery_2x1_complete">
     <a name="appearance" val="logisim_evolution"/>
@@ -1111,7 +1113,7 @@
     </comp>
     <comp lib="2" loc="(440,490)" name="Decoder"/>
     <comp lib="2" loc="(490,450)" name="Decoder"/>
-    <comp loc="(770,280)" name="memery_2x2_1"/>
+    <comp loc="(770,280)" name="memery_2x2_1bit"/>
     <wire from="(200,150)" to="(370,150)"/>
     <wire from="(200,200)" to="(500,200)"/>
     <wire from="(200,260)" to="(470,260)"/>
