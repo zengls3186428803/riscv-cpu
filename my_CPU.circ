@@ -6,6 +6,9 @@
     <tool name="Pin">
       <a name="appearance" val="classic"/>
     </tool>
+    <tool name="Tunnel">
+      <a name="facing" val="east"/>
+    </tool>
   </lib>
   <lib desc="#Gates" name="1"/>
   <lib desc="#Plexers" name="2"/>
@@ -56,6 +59,145 @@
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1090,330)" name="Tunnel">
+      <a name="label" val="S_AB_ALU"/>
+    </comp>
+    <comp lib="0" loc="(110,150)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="radix" val="16"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1100,370)" name="Tunnel">
+      <a name="label" val="SE_AB_ALU"/>
+    </comp>
+    <comp lib="0" loc="(1190,170)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="WE_B_ALU"/>
+    </comp>
+    <comp lib="0" loc="(1190,190)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="CLK_B_ALU"/>
+    </comp>
+    <comp lib="0" loc="(1200,70)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="WE_A_ALU"/>
+    </comp>
+    <comp lib="0" loc="(1200,90)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="CLK_A_ALU"/>
+    </comp>
+    <comp lib="0" loc="(1300,290)" name="Tunnel">
+      <a name="label" val="op_ALU"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(1650,210)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="WE_A_op_B"/>
+    </comp>
+    <comp lib="0" loc="(1650,230)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="E_A_op_B"/>
+    </comp>
+    <comp lib="0" loc="(340,230)" name="Tunnel">
+      <a name="label" val="funct3"/>
+      <a name="width" val="3"/>
+    </comp>
+    <comp lib="0" loc="(350,150)" name="Tunnel">
+      <a name="label" val="opcode"/>
+      <a name="width" val="7"/>
+    </comp>
+    <comp lib="0" loc="(410,250)" name="Tunnel">
+      <a name="label" val="funct7"/>
+      <a name="width" val="7"/>
+    </comp>
+    <comp lib="0" loc="(560,120)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="S_r12d_A_GRG"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(670,240)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="OE_GRG"/>
+    </comp>
+    <comp lib="0" loc="(760,220)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="WE_GRG"/>
+    </comp>
+    <comp lib="0" loc="(760,260)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="CLK_GRG"/>
+    </comp>
+    <comp lib="2" loc="(1020,200)" name="Demultiplexer">
+      <a name="enable" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="2" loc="(610,200)" name="Multiplexer">
+      <a name="select" val="2"/>
+      <a name="selloc" val="tr"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="4" loc="(1190,120)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(1200,20)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(1680,160)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(1000,200)" name="general_register_group"/>
+    <comp loc="(1510,190)" name="ALU_complete"/>
+    <comp loc="(330,150)" name="instruction_stuct_decoder"/>
+    <wire from="(1000,200)" to="(1020,200)"/>
+    <wire from="(1030,220)" to="(1030,230)"/>
+    <wire from="(1030,230)" to="(1040,230)"/>
+    <wire from="(1040,230)" to="(1040,370)"/>
+    <wire from="(1040,370)" to="(1100,370)"/>
+    <wire from="(1050,190)" to="(1090,190)"/>
+    <wire from="(1050,210)" to="(1110,210)"/>
+    <wire from="(1050,220)" to="(1050,330)"/>
+    <wire from="(1050,330)" to="(1090,330)"/>
+    <wire from="(1090,50)" to="(1090,190)"/>
+    <wire from="(1090,50)" to="(1200,50)"/>
+    <wire from="(1110,150)" to="(1110,210)"/>
+    <wire from="(1110,150)" to="(1190,150)"/>
+    <wire from="(1250,150)" to="(1260,150)"/>
+    <wire from="(1260,150)" to="(1260,210)"/>
+    <wire from="(1260,210)" to="(1290,210)"/>
+    <wire from="(1260,230)" to="(1260,290)"/>
+    <wire from="(1260,230)" to="(1290,230)"/>
+    <wire from="(1260,290)" to="(1300,290)"/>
+    <wire from="(1260,50)" to="(1280,50)"/>
+    <wire from="(1280,190)" to="(1290,190)"/>
+    <wire from="(1280,50)" to="(1280,190)"/>
+    <wire from="(1500,190)" to="(1510,190)"/>
+    <wire from="(1510,190)" to="(1680,190)"/>
+    <wire from="(1650,210)" to="(1680,210)"/>
+    <wire from="(1650,230)" to="(1680,230)"/>
+    <wire from="(1740,190)" to="(1770,190)"/>
+    <wire from="(1770,190)" to="(1770,420)"/>
+    <wire from="(330,150)" to="(350,150)"/>
+    <wire from="(330,170)" to="(550,170)"/>
+    <wire from="(330,190)" to="(570,190)"/>
+    <wire from="(330,210)" to="(550,210)"/>
+    <wire from="(330,230)" to="(340,230)"/>
+    <wire from="(330,250)" to="(410,250)"/>
+    <wire from="(550,170)" to="(550,180)"/>
+    <wire from="(550,180)" to="(570,180)"/>
+    <wire from="(550,200)" to="(550,210)"/>
+    <wire from="(550,200)" to="(570,200)"/>
+    <wire from="(560,120)" to="(590,120)"/>
+    <wire from="(590,120)" to="(590,180)"/>
+    <wire from="(610,200)" to="(780,200)"/>
+    <wire from="(670,240)" to="(780,240)"/>
+    <wire from="(760,220)" to="(780,220)"/>
+    <wire from="(760,260)" to="(780,260)"/>
+    <wire from="(760,280)" to="(760,420)"/>
+    <wire from="(760,280)" to="(780,280)"/>
+    <wire from="(760,420)" to="(1770,420)"/>
   </circuit>
   <circuit name="PC">
     <a name="appearance" val="logisim_evolution"/>
@@ -866,14 +1008,14 @@
     <a name="circuit" val="instruction_decoder"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(250,150)" name="Pin">
+    <comp lib="0" loc="(270,150)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="instruction"/>
       <a name="radix" val="16"/>
       <a name="width" val="32"/>
     </comp>
     <comp loc="(500,150)" name="instruction_stuct_decoder"/>
-    <wire from="(250,150)" to="(280,150)"/>
+    <wire from="(270,150)" to="(280,150)"/>
   </circuit>
   <circuit name="instruction_stuct_decoder">
     <a name="appearance" val="logisim_evolution"/>
@@ -1451,5 +1593,64 @@
     <wire from="(570,500)" to="(650,500)"/>
     <wire from="(570,610)" to="(570,640)"/>
     <wire from="(570,640)" to="(650,640)"/>
+  </circuit>
+  <circuit name="Instr_to_Seq">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="Instr_to_Seq"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1400,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="WE_GRG"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1400,210)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OE_GRG"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1400,290)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="CLK_GRG"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1400,380)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="S_r12d_A_GRG"/>
+      <a name="output" val="true"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(1400,470)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="S_AB_ALU"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1400,560)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="op_ALU"/>
+      <a name="output" val="true"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(150,320)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="funct3"/>
+      <a name="width" val="3"/>
+    </comp>
+    <comp lib="0" loc="(160,440)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="funct7"/>
+      <a name="width" val="7"/>
+    </comp>
+    <comp lib="0" loc="(170,190)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="7"/>
+    </comp>
   </circuit>
 </project>
