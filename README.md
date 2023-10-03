@@ -1,6 +1,7 @@
 # RISC CPU by Verilog for study
 - [RISC CPU by Verilog for study](#risc-cpu-by-verilog-for-study)
   - [usage](#usage)
+  - [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
   - [description for directory and file](#description-for-directory-and-file)
       - ["rv32i\_cpu\_Design\_Sources" is Design Sources(Verilog)](#rv32i_cpu_design_sources-is-design-sourcesverilog)
       - ["rv32i\_cpu\_Simulation\_Sources" is Simluation Sources(testbench)](#rv32i_cpu_simulation_sources-is-simluation-sourcestestbench)
@@ -31,6 +32,18 @@ make
 5. modify rv32i_cpu_Design_Sources/riscv_mem file, change "/home/zengls/code/c/final_hex.txt" to /git-local-project-dir/machine_code/final_hex.txt
 6. add rv32i_cpu_Design_Sources to Design Sources Directory in vivado,add rv32i_cpu_Simulation_Sources to Simulate Sources Directory
 7. simulate (run tb.v) 
+
+## supported instruction(instruction detail see RISC-V-Reader)
+(https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/books/rvbook.pdf)
+```
+lui,auipc,
+jal,jalr,
+beq,bne,blt,bge,bltu,bgeu
+lw
+sw
+addi,slti,sltiu,xori,ori,andi,slli,srli,srai
+add,sub,sll.slt,sltu,xor,srl,sra,or,and
+```
 ## description for directory and file
 #### "rv32i_cpu_Design_Sources" is Design Sources(Verilog)
 |filename|description|
