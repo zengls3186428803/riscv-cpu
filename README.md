@@ -8,7 +8,7 @@
   - [problems in design and solutions](#problems-in-design-and-solutions)
       - [如何设计控制器（Control Unit）](#如何设计控制器control-unit)
       - [下降沿修改CU状态机，上升沿更新寄存器](#下降沿修改cu状态机上升沿更新寄存器)
-        - [设计CU状态机时，一段式状态机有问题，改用三段式状态机](#设计cu状态机时一段式状态机有问题改用三段式状态机)
+      - [设计CU状态机时，一段式状态机有问题，改用三段式状态机](#设计cu状态机时一段式状态机有问题改用三段式状态机)
 
 ## usage
 1. git-clone to your local computer 
@@ -82,7 +82,7 @@ process.py |used to generate final_hex.txt(detail see makefile)
 #### 下降沿修改CU状态机，上升沿更新寄存器
 例如addr_reg_WE=1，代表要往address regitser写入地址，为了使写入的时候addr_reg_WE已经为1，我选择在下降沿修改状态机，在上升沿更新寄存器
 
-##### 设计CU状态机时，一段式状态机有问题，改用三段式状态机
+#### 设计CU状态机时，一段式状态机有问题，改用三段式状态机
 有问题的一段式状态机见/resouces/cu.v
 问题在：case----LOAD_INST_2（第90行左右）
 ```verilog
