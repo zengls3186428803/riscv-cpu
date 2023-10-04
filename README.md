@@ -1,16 +1,18 @@
 # RISC CPU by Verilog for study
 - [RISC CPU by Verilog for study](#risc-cpu-by-verilog-for-study)
-  - [usage](#usage)
-  - [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
-  - [description for directory and file](#description-for-directory-and-file)
-      - ["rv32i\_cpu\_Design\_Sources" is Design Sources(Verilog)](#rv32i_cpu_design_sources-is-design-sourcesverilog)
-      - ["rv32i\_cpu\_Simulation\_Sources" is Simluation Sources(testbench)](#rv32i_cpu_simulation_sources-is-simluation-sourcestestbench)
-      - ["machine\_code"](#machine_code)
-  - [problems in design and solutions](#problems-in-design-and-solutions)
-      - [如何设计控制器（Control Unit）](#如何设计控制器control-unit)
-      - [下降沿修改CU状态机，上升沿更新寄存器](#下降沿修改cu状态机上升沿更新寄存器)
-      - [设计CU状态机时，一段式状态机有问题，改用三段式状态机](#设计cu状态机时一段式状态机有问题改用三段式状态机)
-      - [指令与数据------冯诺依曼结构](#指令与数据------冯诺依曼结构)
+	- [usage](#usage)
+	- [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
+	- [description for directory and file](#description-for-directory-and-file)
+			- ["rv32i\_cpu\_Design\_Sources" is Design Sources(Verilog)](#rv32i_cpu_design_sources-is-design-sourcesverilog)
+			- ["rv32i\_cpu\_Simulation\_Sources" is Simluation Sources(testbench)](#rv32i_cpu_simulation_sources-is-simluation-sourcestestbench)
+			- ["machine\_code"](#machine_code)
+	- [problems in design and solutions](#problems-in-design-and-solutions)
+			- [如何设计控制器（Control Unit）？](#如何设计控制器control-unit)
+			- [下降沿修改CU状态机，上升沿更新寄存器](#下降沿修改cu状态机上升沿更新寄存器)
+			- [设计CU状态机时，一段式状态机有问题，改用三段式状态机](#设计cu状态机时一段式状态机有问题改用三段式状态机)
+			- [指令与数据--冯诺依曼结构](#指令与数据--冯诺依曼结构)
+			- [一个寄存器什么时候不需要reset端口？](#一个寄存器什么时候不需要reset端口)
+			- [sel\_xxx 通过组合逻辑直接控制还是作为CU的一个状态？](#sel_xxx-通过组合逻辑直接控制还是作为cu的一个状态)
 
 ## usage
 1. git-clone to your local computer 
@@ -88,9 +90,9 @@ makefile |...
 process.py |used to generate final_hex.txt(detail see makefile)
 
 ## problems in design and solutions
-#### 如何设计控制器（Control Unit）
+#### 如何设计控制器（Control Unit）？
 首先，CU控制的是部件的使能（Write Enable）、数据的流向（Select）、(输出的使能【Read Enable】)、 (复位【reset】)
-例如，取指阶段，要先把address regitser 的WE置1, 等address register 得到要访问的地址后，再打开内存的RE和data register的WE,等data register得到数据后，再打开instruction register 的WE,把数据写入instruction register
+例如，取指阶段，要先把address regitser 的WE置1, 等address register 得到要访问的地址后，再打开内存的RE和data register的WE,等data register得到数据后，再打开instruction register 的WE,把数据写入instruction register<br>
 因此，CU是一个时序逻辑电路，部件的WE和Select是CU的状态，先做什么，再做什么就是状态的迁移。
 
 #### 下降沿修改CU状态机，上升沿更新寄存器
@@ -128,5 +130,12 @@ process.py |used to generate final_hex.txt(detail see makefile)
 三段式状态机解决上述问题的原因在于：三段式状态机的状态跳转是组合逻辑，状态更新和输出是时序逻辑。
 一般如果状态机不依赖外部输入，可用一段式，否则，优先使用三段式。
 
-#### 指令与数据------冯诺依曼结构
+#### 指令与数据--冯诺依曼结构
 我把代码和数据放到了同一个内存中了，代码在低地址空间,数据在高地址空间（由高地址向低地址生长的栈），因此初始的时候需要把sp指针指向高地址（例如我是在init.s文件中使用lui x2，0x3ff）
+
+#### 一个寄存器什么时候不需要reset端口？
+当这个寄存器里的值总是被更新后再被使用，那就不需要reset端口。
+
+#### sel_xxx 通过组合逻辑直接控制还是作为CU的一个状态？
+尽量通过组合逻辑直接控制，当发现组合逻辑出问题时再用CU控制（好像说了跟没说一样）
+
