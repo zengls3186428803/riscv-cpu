@@ -11,7 +11,7 @@ final_ld.bin:main.o init.o
 	$(LD) $(LDFLAGS) -o final.o init.o main.o
 	$(OBJCOPY) $(OBJCOPYFLAGS) final.o final_ld.bin
 	$(CROSS_COMPILE)objdump -D -b binary -mriscv final_ld.bin>final_hex.txt
-	python3 process.py > /dev/null
+	#python3 process.py > /dev/null
 
 main.o:main.c
 	$(CC) $(SFLAGS) main.c -o main.s
