@@ -16,23 +16,10 @@
 `define EXEC_AUIPC		5'd15
 `define IDLE			5'd31
 
-
-`define PC_WE 					5'd0 		
-`define ADDR_REG_WE             5'd1
-`define DATA_REG_WE             5'd2
-`define INST_REG_WE             5'd3
-`define REG_WE                  5'd4
-`define MEM_RE                  5'd5
-`define MEM_WE                  5'd6
-`define SEL_PC_GRG              5'd7
-`define SEL_MEM_GRG             5'd8
-`define SEL_IMMI_IMMS           5'd9
-`define SEL_4_B_J_RJ            5'd10
-`define SEL_ALU_MEM_IMM_PCA     5'd11
-
 module riscv_cu(
 	input wire clk,
 	input wire [6:0] opcode,
+	input wire [2:0] funct3,
 	output wire pc_WE_net,
 	output wire addr_reg_WE_net,
 	output wire data_reg_WE_net,
@@ -41,7 +28,9 @@ module riscv_cu(
 	output wire mem_RE_net,
 	output wire mem_WE_net,
 	output wire sel_pc_grg_net,
-	output wire sel_mem_grg_net
+	output wire sel_mem_grg_net,
+	output wire [1:0] mem_by_net,
+	output wire [2:0] sel_b_h_w_bu_hu_net
 );                              
 	reg pc_WE;
 	reg addr_reg_WE;
@@ -53,6 +42,9 @@ module riscv_cu(
 
 	reg sel_pc_grg;
 	reg sel_mem_grg;
+	reg [2:0] sel_b_h_w_bu_hu;
+
+	reg [1:0] mem_by;
 
 	reg [4:0] cur_state;
 	reg [4:0] next_state;
@@ -68,6 +60,7 @@ module riscv_cu(
 		mem_WE = 0;
 		sel_pc_grg = 0;
 		sel_mem_grg = 0;
+		sel_b_h_w_bu_hu = 0;
 	end
 
 	//state update;
@@ -165,6 +158,8 @@ module riscv_cu(
 				grg_WE <= 0;
 				mem_RE <= 1;
 				mem_WE <= 0;
+				mem_by <= 2;
+				sel_b_h_w_bu_hu <= 2;
 			end
 			`LOAD_INST_2: begin
 				pc_WE <= 0;
@@ -222,6 +217,7 @@ module riscv_cu(
 				mem_RE <= 0;
 				mem_WE <= 1;
 				sel_mem_grg <= 0;
+				mem_by <= funct3[1:0];
 			end
 			`EXEC_L_0: begin
 				pc_WE <= 1;
@@ -241,6 +237,8 @@ module riscv_cu(
 				grg_WE <= 0;
 				mem_RE <= 1;
 				mem_WE <= 0;
+				mem_by <= funct3[1:0];
+				sel_b_h_w_bu_hu <= (funct3 == 0 ? 0 : (funct3 == 1 ? 1 : (funct3 == 2 ? 2 : (funct3 == 4 ? 3 : (funct3 == 5 ? 4 : 4)))));
 			end
 			`EXEC_L_2: begin
 				pc_WE <= 0;
@@ -326,5 +324,7 @@ module riscv_cu(
 	assign mem_WE_net = mem_WE;
 	assign sel_pc_grg_net = sel_pc_grg;
 	assign sel_mem_grg_net = sel_mem_grg;
+	assign mem_by_net = mem_by;
+	assign sel_b_h_w_bu_hu_net = sel_b_h_w_bu_hu;
 
 endmodule

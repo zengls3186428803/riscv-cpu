@@ -14,6 +14,7 @@ module riscv_core(
 	wire [31:0] mem_addr_net;
 	wire mem_WE_net;
 	wire mem_RE_net;
+	wire [1:0] mem_by_net;
 
 	//wires of arithmetic logic unit
 	wire [31:0] alu_a_net;
@@ -74,9 +75,10 @@ module riscv_core(
 	riscv_mem memory(
 		.data_out(mem_data_out_net),
 		.data_in(mem_data_in_net),
-		.addr_in(mem_addr_net), 
+		.addr(mem_addr_net), 
 		.RE(mem_RE_net),
 		.WE(mem_WE_net),
+		.by(mem_by_net),
 		.clk(clk)
 	);
 
@@ -160,14 +162,13 @@ module riscv_core(
 	assign multiplex_4_B_J_RJ_net[0] = pc_net + 4;
 	assign multiplex_4_B_J_RJ_net[1] = pc_net + (branch_out == 1 ? iss_imm_B_net : 4);
 	assign multiplex_4_B_J_RJ_net[2] = pc_net + iss_imm_J_net;
-	assign multiplex_4_B_J_RJ_net[3] = grg_data_rs1_out_net + iss_imm_I_net;
+	assign multiplex_4_B_J_RJ_net[3] = (grg_data_rs1_out_net + iss_imm_I_net)&(~32'b1);
 	assign pc_data_in_net = multiplex_4_B_J_RJ_net[sel_4_B_J_RJ_net];
 	assign sel_4_B_J_RJ_net = (iss_opcode_net == 7'b1100011 ? 2'b01 : (iss_opcode_net == 7'b1101111 ? 2'b10 : (iss_opcode_net == 7'b1100111 ? 2'b11 : 2'b00)));
 
 	//branch
 	assign branch_a_net = grg_data_rs1_out_net;
 	assign branch_b_net = grg_data_rs2_out_net;
-
 
 
 	//load-store
@@ -192,11 +193,19 @@ module riscv_core(
 	//data register
 	wire [31:0] multiplex_mem_grg_net[1:0];
 	wire sel_mem_grg_net;
-	assign multiplex_mem_grg_net[0] = mem_data_out_net;
+	wire [31:0] multiplex_b_h_w_bu_hu_net[4:0];
+	wire [2:0] sel_b_h_w_bu_hu_net;
+	assign multiplex_b_h_w_bu_hu_net[0] = (mem_data_out_net[7]==0? {24'b0,mem_data_out_net[7:0]} : {~24'b0,mem_data_out_net[7:0]});
+	assign multiplex_b_h_w_bu_hu_net[1] = (mem_data_out_net[15]==0? {16'b0,mem_data_out_net[15:0]} : {~16'b0,mem_data_out_net[15:0]});
+	assign multiplex_b_h_w_bu_hu_net[2] = mem_data_out_net[31:0];
+	assign multiplex_b_h_w_bu_hu_net[3] = {24'b0,mem_data_out_net[7:0]};
+	assign multiplex_b_h_w_bu_hu_net[4] = {16'b0,mem_data_out_net[7:0]};
+	assign multiplex_mem_grg_net[0] = multiplex_b_h_w_bu_hu_net[sel_b_h_w_bu_hu_net];
+
 	assign multiplex_mem_grg_net[1] = grg_data_rs2_out_net;
 	assign data_reg_data_in_net = multiplex_mem_grg_net[sel_mem_grg_net];
-	//assign sel_mem_grg_net = (iss_opcode_net == 7'b0100011 ? 1 : 0);
 
+	//
 	assign mem_data_in_net = data_reg_data_out_net;
 
 	//instruction register
@@ -230,6 +239,7 @@ module riscv_core(
 	riscv_cu control_unit(
 		.clk(clk),
 		.opcode(iss_opcode_net),
+		.funct3(iss_funct3_net),
 		.pc_WE_net(pc_WE_net),
 		.addr_reg_WE_net(addr_reg_WE_net),
 		.data_reg_WE_net(data_reg_WE_net),
@@ -238,7 +248,9 @@ module riscv_core(
 		.mem_RE_net(mem_RE_net),
 		.mem_WE_net(mem_WE_net),
 		.sel_pc_grg_net(sel_pc_grg_net),
-		.sel_mem_grg_net(sel_mem_grg_net)
+		.sel_mem_grg_net(sel_mem_grg_net),
+		.mem_by_net(mem_by_net),
+		.sel_b_h_w_bu_hu_net(sel_b_h_w_bu_hu_net)
 	);
 
 endmodule

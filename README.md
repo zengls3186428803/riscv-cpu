@@ -42,8 +42,8 @@ make
 lui,auipc,
 jal,jalr,
 beq,bne,blt,bge,bltu,bgeu
-lw
-sw
+lb,lh,lw,lbu,lhu
+sb,sh,sw
 addi,slti,sltiu,xori,ori,andi,slli,srli,srai
 add,sub,sll.slt,sltu,xor,srl,sra,or,and
 ```
