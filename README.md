@@ -27,14 +27,11 @@ https://www.xilinx.com/products/design-tools/vivado.html
 ```
 https://github.com/riscv-collab/riscv-gnu-toolchain
 ```
-4. (optional) you can modify machine/main.c, and remake final_hex.txt
+4. (optional) you can modify machine/main.c, and re-compile
 ```
 make clean
 make
 ```
-5. modify rv32i_cpu_Design_Sources/riscv_mem file, change "/home/zengls/code/c/final_hex.txt" to /git-local-project-dir/machine_code/final_hex.txt
-6. add rv32i_cpu_Design_Sources to Design Sources Directory in vivado,add rv32i_cpu_Simulation_Sources to Simulate Sources Directory
-7. simulate (run tb.v) 
 
 ## supported instruction(instruction detail see RISC-V-Reader)
 (https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/books/rvbook.pdf)
