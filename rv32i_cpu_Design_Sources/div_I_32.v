@@ -4,13 +4,14 @@ module div_I_32(
 	input wire [31:0] b_net,
 	input wire reset,
 	output wire [31:0] q_net,
-	output wire [31:0] r_net
+	output wire [31:0] r_net,
+	output wire finish_net
 );
 	reg [31:0] a;//divident
 	reg [31:0] b;//divisor
 	reg [31:0] q;//quotient
 	reg [31:0] r;//remainder
-
+	reg finish;
 	reg [5:0] cur_state;
 	reg [5:0] next_state;
 
@@ -51,6 +52,19 @@ module div_I_32(
 				b <= (a_net[31] == b_net[31] ? (~b_net+1) : b_net);
 				r <= (a_net[31] == 0 ? 32'b0 : 32'hffffffff);
 				sign_result <= a_net[31] ^ b_net[31];
+				finish <= 0;
+			end
+			32: begin
+				if(condition) begin
+					q <= (q<<1)+1;
+					r <= r1 + b;
+				end
+				else begin
+					q <= (q<<1);
+					r <= r1;
+				end
+				a = a << 1;
+				finish <= 1;
 			end
 			33: ;
 			default: begin
@@ -69,5 +83,6 @@ module div_I_32(
 
 	assign q_net = (b == 0 ? q : (sign_result == 0 ? q : (~q + 1)));
 	assign r_net = r;
+	assign finish_net = finish;
 
 endmodule

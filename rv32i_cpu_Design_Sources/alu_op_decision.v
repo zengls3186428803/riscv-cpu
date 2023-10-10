@@ -6,8 +6,6 @@ module alu_op_decision(
 );
 	wire [16:0] in;
 	assign in = {funct7, funct3, opcode};
-//	wire [9:0] in_;
-//	assign in_ = {funct3, opcode};
 	always @(*) begin
 		casez(in)
 			//R-type
@@ -36,17 +34,5 @@ module alu_op_decision(
 			17'bzzzzzzz1110010011 : alu_op = 4'b1001;
 			default : alu_op = 4'b0000;
 		endcase
-		/*	
-		case(in_)
-		//RI-type
-		10'b0000010011 : alu_op = 4'b0000;
-		10'b0100010011 : alu_op = 4'b0011;
-		10'b0110010011 : alu_op = 4'b0100;
-		10'b1000010011 : alu_op = 4'b0101;
-		10'b1100010011 : alu_op = 4'b1000;
-		10'b1110010011 : alu_op = 4'b1001;
-		default : alu_op = 4'b0000;
-		endcase
-		*/		
 	end
 endmodule

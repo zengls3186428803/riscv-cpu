@@ -1,7 +1,7 @@
 CROSS_COMPILE=riscv64-unknown-elf-
 CC=$(CROSS_COMPILE)gcc
-CFLAGS=-c -nostdlib -march=rv32i -mabi=ilp32
-SFLAGS=-S -nostdlib -march=rv32i -mabi=ilp32
+CFLAGS=-c -nostdlib -march=rv32im -mabi=ilp32
+SFLAGS=-S -nostdlib -march=rv32im -mabi=ilp32
 OBJCOPY=$(CROSS_COMPILE)objcopy
 OBJCOPYFLAGS=-O binary -j .text
 LD=$(CROSS_COMPILE)ld

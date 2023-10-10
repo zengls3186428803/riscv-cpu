@@ -4,12 +4,14 @@ module divu_I_32(
 	input wire [31:0] b_net,
 	input wire reset,
 	output wire [31:0] q_net,//quotinet
-	output wire [31:0] r_net//remainder
+	output wire [31:0] r_net,//remainder
+	output finish_net
 );
 	reg [31:0] a;//divident
 	reg [31:0] b;//divisor
 	reg [31:0] q;//quotient
 	reg [31:0] r;//remainder
+	reg finish;
 	reg [6:0] cur_state;
 	reg [6:0] next_state;
 
@@ -40,6 +42,19 @@ module divu_I_32(
 				b <= b_net;
 				q <= 0;
 				r <= 0;
+				finish <= 0;
+			end
+			32: begin
+				if(((r<<1)+ai) >= b) begin
+					q <= (q<<1)+1;
+					r <= ((r<<1)+ai) - b;
+				end
+				else begin
+					q <= (q<<1);
+					r <= (r<<1)+ai;
+				end
+				a <= a << 1;
+				finish <= 1;
 			end
 			33: ;
 			default: begin
@@ -58,5 +73,6 @@ module divu_I_32(
 
 	assign q_net = q;
 	assign r_net = r;
+	assign finish_net = finish;
 
 endmodule

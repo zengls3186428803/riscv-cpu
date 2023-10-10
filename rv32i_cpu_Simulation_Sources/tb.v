@@ -21,7 +21,7 @@ module tb(
 			core.memory.m3.m[i] = 0;
 		end
 		
-		for(i = 0; i < 264 && !$feof(fptr); i = i + 1) begin
+		for(i = 0; i < 384 && !$feof(fptr); i = i + 1) begin
 			if(i%4 == 0) begin
 				$fread(x,fptr);
 				core.memory.m0.m[i/4]=x;
@@ -68,7 +68,16 @@ module tb(
 			$display("*******************************************");
 			$display("i=%d",i);
 			$display("grg[ra]=%X",core.general_register_group.general_register_group[1]);
-			$display("alu_out= %X",core.alu_r_net);
+			$display("rs1=%X,rs2=%X,grg_data_rs1=%X,grg_data_rs2=%X,rd=%X,alu_a=%X,alu_b=%X,alu_out= %X,alu_op=%X,grg_data_in=%X,sel_alu_mul=%X",
+			core.iss_rs1_net,
+			core.iss_rs2_net,
+			core.grg_data_rs1_out_net,
+			core.grg_data_rs2_out_net,
+			core.iss_rd_net,
+			core.alu_a_net,core.alu_b_net,core.alu_r_net,core.alu_op_net,
+			core.grg_data_rd_in,
+			core.sel_alu_mul_net
+			);
 			$display("addr_align=%X,addr_in=%X",core.memory.addr_align, core.memory.addr_in);
 			$display("pc=%X\naddr=%X\ndata=%X\ninst=%X",
 				core.program_counter.program_counter,
@@ -93,10 +102,13 @@ module tb(
 			);
 			clk = ~clk;
 			#1 ;
+			clk = ~clk;
+			#1 ;
 		end
 		//		$display("===============================================\n");
 		//		$display("grg[sp]=%X",core.general_register_group.general_register_group[2]);
 		$display("m[0X100]=%X",{core.memory.m3.m[64],core.memory.m2.m[64],core.memory.m1.m[64],core.memory.m0.m[64]});
+		$display("m[0X104]=%X",{core.memory.m3.m[65],core.memory.m2.m[65],core.memory.m1.m[65],core.memory.m0.m[65]});
 		//		$display("===============================================\n");
 	end
 endmodule

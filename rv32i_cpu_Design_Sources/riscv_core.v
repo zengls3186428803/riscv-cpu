@@ -64,6 +64,23 @@ module riscv_core(
 	wire [2:0] branch_op_net;
 	wire branch_out;
 
+	//multiply
+	wire [31:0] mul_o_high_net;
+	wire [31:0] mul_o_low_net;
+	wire mul_rst_net;
+	wire mul_finish_net;
+
+	//division_unsigned
+	wire [31:0] divu_q_net;
+	wire [31:0] divu_r_net;
+	wire divu_rst_net;
+	wire divu_finish_net;
+
+	wire [31:0] div_q_net;
+	wire [31:0] div_r_net;
+	wire div_rst_net;
+	wire div_finish_net;
+
 	pc program_counter(
 		.data_out(pc_net), 
 		.data_in(pc_data_in_net),
@@ -156,6 +173,36 @@ module riscv_core(
 		.alu_op(alu_op_net)
 	);
 
+	mul_I_32 mul(
+		.clk(clk),
+		.a_net(grg_data_rs1_out_net),
+		.b_net(grg_data_rs2_out_net),
+		.reset(mul_rst_net),
+		.o_high_net(mul_o_high_net),
+		.o_low_net(mul_o_low_net),
+		.finish_net(mul_finish_net)
+	);
+
+	divu_I_32 divu(
+		.clk(clk),
+		.a_net(grg_data_rs1_out_net),
+		.b_net(grg_data_rs2_out_net),
+		.reset(divu_rst_net),
+		.q_net(divu_q_net),
+		.r_net(divu_r_net),
+		.finish_net(divu_finish_net)
+	);
+
+	div_I_32 div(
+		.clk(clk),
+		.a_net(grg_data_rs1_out_net),
+		.b_net(grg_data_rs2_out_net),
+		.reset(div_rst_net),
+		.q_net(div_q_net),
+		.r_net(div_r_net),
+		.finish_net(div_finish_net)
+	);
+
 	//program counter
 	wire [31:0] multiplex_4_B_J_RJ_net [3:0];
 	wire [1:0] sel_4_B_J_RJ_net;
@@ -199,7 +246,7 @@ module riscv_core(
 	assign multiplex_b_h_w_bu_hu_net[1] = (mem_data_out_net[15]==0? {16'b0,mem_data_out_net[15:0]} : {~16'b0,mem_data_out_net[15:0]});
 	assign multiplex_b_h_w_bu_hu_net[2] = mem_data_out_net[31:0];
 	assign multiplex_b_h_w_bu_hu_net[3] = {24'b0,mem_data_out_net[7:0]};
-	assign multiplex_b_h_w_bu_hu_net[4] = {16'b0,mem_data_out_net[7:0]};
+	assign multiplex_b_h_w_bu_hu_net[4] = {16'b0,mem_data_out_net[15:0]};
 	assign multiplex_mem_grg_net[0] = multiplex_b_h_w_bu_hu_net[sel_b_h_w_bu_hu_net];
 
 	assign multiplex_mem_grg_net[1] = grg_data_rs2_out_net;
@@ -219,7 +266,13 @@ module riscv_core(
 
 	wire [1:0] sel_alu_mem_imm_pca4_net;
 	wire [31:0] multiplex_alu_mem_imm_pca4_net [3:0];
-	assign multiplex_alu_mem_imm_pca4_net[0] = alu_r_net;//R(I)-type
+
+	wire [31:0] multiplex_alu_mul_net[1:0];
+	wire sel_alu_mul_net;
+	assign multiplex_alu_mul_net[0] = alu_r_net;
+	assign multiplex_alu_mul_net[1] = (iss_funct3_net == 0 ? mul_o_low_net : (iss_funct3_net == 1 || iss_funct3_net == 2 || iss_funct3_net == 3 ? mul_o_high_net : (iss_funct3_net == 4 ? div_q_net : (iss_funct3_net == 5 ? divu_q_net : (iss_funct3_net == 6 ? div_r_net : divu_r_net)))));
+	assign sel_alu_mul_net = (iss_opcode_net == 7'b0110011 && iss_funct7_net == 1 ? 1 : 0);
+	assign multiplex_alu_mem_imm_pca4_net[0] = multiplex_alu_mul_net[sel_alu_mul_net];
 	assign multiplex_alu_mem_imm_pca4_net[1] = data_reg_data_out_net;//load
 	assign multiplex_alu_mem_imm_pca4_net[2] = iss_imm_U_net;//lui
 	assign multiplex_alu_mem_imm_pca4_net[3] = pc_a4_net;//jal,jalr
@@ -236,10 +289,14 @@ module riscv_core(
 	assign alu_b_net = multiplex_grg_imm_net[sel_grg_imm_net];
 	assign sel_grg_imm_net = (iss_opcode_net == 7'b0010011 ? 1 : 0);
 
+
+
 	riscv_cu control_unit(
 		.clk(clk),
 		.opcode(iss_opcode_net),
 		.funct3(iss_funct3_net),
+		.funct7(iss_funct7_net),
+
 		.pc_WE_net(pc_WE_net),
 		.addr_reg_WE_net(addr_reg_WE_net),
 		.data_reg_WE_net(data_reg_WE_net),
@@ -247,10 +304,18 @@ module riscv_core(
 		.grg_WE_net(grg_WE_net),
 		.mem_RE_net(mem_RE_net),
 		.mem_WE_net(mem_WE_net),
+		.mem_by_net(mem_by_net),
+
 		.sel_pc_grg_net(sel_pc_grg_net),
 		.sel_mem_grg_net(sel_mem_grg_net),
-		.mem_by_net(mem_by_net),
-		.sel_b_h_w_bu_hu_net(sel_b_h_w_bu_hu_net)
+		.sel_b_h_w_bu_hu_net(sel_b_h_w_bu_hu_net),
+
+		.mul_rst_net(mul_rst_net),
+		.mul_finish_net(mul_finish_net),
+		.divu_rst_net(divu_rst_net),
+		.divu_finish_net(divu_finish_net),
+		.div_rst_net(div_rst_net),
+		.div_finish_net(div_finish_net)
 	);
 
 endmodule
