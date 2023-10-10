@@ -110,6 +110,15 @@ main:
 	lw	a0,-28(s0)
 	call	sum
 	sw	a0,-36(s0)
+	lw	a5,-36(s0)
+	mul	a5,a5,a5
+	sw	a5,-36(s0)
+	lw	a5,-36(s0)
+	srai	a4,a5,31
+	andi	a4,a4,3
+	add	a5,a4,a5
+	srai	a5,a5,2
+	sw	a5,-36(s0)
 	lw	a0,-36(s0)
 	call	fib
 	mv	a4,a0

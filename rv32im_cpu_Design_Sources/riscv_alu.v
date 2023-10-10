@@ -1,4 +1,3 @@
-
 `define ADD_INT_32  4'b0000
 `define SUB_INT_32  4'b0001
 `define SLL_INT_32  4'b0010

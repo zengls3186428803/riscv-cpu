@@ -19,6 +19,8 @@ int main(char **args, int nargs) {
 	a = 3;
 	b = 1;
 	int c = sum(a, b);
+	c = (-c) * (-c);
+	c = c / 4;
 	*ans1 = fib(c);
 	*ans2 = gcd(60, 48);
 	while(1);

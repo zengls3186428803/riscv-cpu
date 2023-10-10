@@ -21,7 +21,7 @@ module tb(
 			core.memory.m3.m[i] = 0;
 		end
 		
-		for(i = 0; i < 384 && !$feof(fptr); i = i + 1) begin
+		for(i = 0; i < 420 && !$feof(fptr); i = i + 1) begin
 			if(i%4 == 0) begin
 				$fread(x,fptr);
 				core.memory.m0.m[i/4]=x;
@@ -102,8 +102,8 @@ module tb(
 			);
 			clk = ~clk;
 			#1 ;
-			clk = ~clk;
-			#1 ;
+//			clk = ~clk;
+//			#1 ;
 		end
 		//		$display("===============================================\n");
 		//		$display("grg[sp]=%X",core.general_register_group.general_register_group[2]);
