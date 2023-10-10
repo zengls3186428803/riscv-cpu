@@ -2,9 +2,9 @@
 - [RISC CPU by Verilog for study](#risc-cpu-by-verilog-for-study)
 	- [usage](#usage)
 	- [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
-	- [some description for directory and file](#some-description-for-directory-and-file)
-			- ["rv32i\_cpu\_Design\_Sources" is Design Sources(Verilog)](#rv32i_cpu_design_sources-is-design-sourcesverilog)
-			- ["rv32i\_cpu\_Simulation\_Sources" is Simluation Sources(testbench)](#rv32i_cpu_simulation_sources-is-simluation-sourcestestbench)
+	- [description for some files](#description-for-some-files)
+			- ["rv32im\_cpu\_Design\_Sources"](#rv32im_cpu_design_sources)
+			- ["rv32im\_cpu\_Simulation\_Sources"](#rv32im_cpu_simulation_sources)
 			- ["machine\_code"](#machine_code)
 	- [problems in design and solutions](#problems-in-design-and-solutions)
 			- [如何设计控制器（Control Unit）？](#如何设计控制器control-unit)
@@ -15,6 +15,7 @@
 			- [sel\_xxx 通过组合逻辑直接控制还是作为CU的一个状态？](#sel_xxx-通过组合逻辑直接控制还是作为cu的一个状态)
 			- [如何判断一个多周期部件执行完了？](#如何判断一个多周期部件执行完了)
 			- [多周期部件的初始化](#多周期部件的初始化)
+
 
 ## usage
 1. git-clone to your local computer 
@@ -48,8 +49,8 @@ add,sub,sll.slt,sltu,xor,srl,sra,or,and,
 mul,mulh,mulhsu,mulhu,
 div,divu,rem,remu
 ```
-## some description for directory and file
-#### "rv32i_cpu_Design_Sources" is Design Sources(Verilog)
+## description for some files
+#### "rv32im_cpu_Design_Sources"
 |filename|description|
 |----|-------------|     
 branch.v    |     branch unit          
@@ -64,8 +65,9 @@ instruct_struct_spliter.v | ...
 riscv_alu.v  | arithmetic_logic_unit
 sra_I_32.v| shift_right_arithmetic
 
-#### "rv32i_cpu_Simulation_Sources" is Simluation Sources(testbench)
+#### "rv32im_cpu_Simulation_Sources"
 ...
+
 #### "machine_code"
 |filename|description|
 |----|-------------|
@@ -130,4 +132,4 @@ mul,div,divu就是采用finish标志来标记执行结束的。
 
 #### 多周期部件的初始化
 多周期部件需要初始化（mul,div,divu都有初始化周期），我采用了同步初始化。
-mul（div,divu）一共需要34个时钟周期（1个时钟周期同步初始化，1个时钟周期部件初始化（把一些寄存器清0），32个时钟周期执行运算）（在第34个时钟周期将finish置0)
+mul（div,divu）一共需要34个时钟周期（1个时钟周期同步初始化，1个时钟周期部件初始化（把一些寄存器清0），32个时钟周期执行运算）（在第34个时钟周期将finish置1)
