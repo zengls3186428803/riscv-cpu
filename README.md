@@ -1,4 +1,4 @@
-# RISC CPU by Verilog for study
+# RISCV CPU by Verilog for study
 - [RISC CPU by Verilog for study](#risc-cpu-by-verilog-for-study)
 	- [usage](#usage)
 	- [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
