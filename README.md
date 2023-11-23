@@ -1,6 +1,5 @@
-# RISCV CPU by Verilog for study
-- [RISCV CPU by Verilog for study](#riscv-cpu-by-verilog-for-study)
-	- [usage](#usage)
+# RISCV CPU by Verilog
+- [RISCV CPU by Verilog](#riscv-cpu-by-verilog)
 	- [supported instruction(instruction detail see RISC-V-Reader)](#supported-instructioninstruction-detail-see-risc-v-reader)
 	- [description for some files](#description-for-some-files)
 		- ["rv32im\_cpu\_Design\_Sources"](#rv32im_cpu_design_sources)
@@ -16,26 +15,6 @@
 		- [如何判断一个多周期部件执行完了？](#如何判断一个多周期部件执行完了)
 		- [多周期部件的初始化](#多周期部件的初始化)
 
-
-
-## usage
-1. git-clone to your local computer 
-```bash
-git clone https://github.com/zengls3186428803/riscv-cpu.git
-```
-2. download vivado if you don't have, this is url for download vivado
-```
-https://www.xilinx.com/products/design-tools/vivado.html
-```
-3. (optional) download riscv-gnu-toolchain(please follow the README.md file for "riscv-gnu-toolchain")
-```
-https://github.com/riscv-collab/riscv-gnu-toolchain
-```
-4. (optional) you can modify machine/main.c, and re-compile
-```
-make clean
-make
-```
 
 ## supported instruction(instruction detail see RISC-V-Reader)
 (https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/books/rvbook.pdf)
