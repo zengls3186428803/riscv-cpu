@@ -1,3 +1,7 @@
+//total 34 clocks
+//第一个周期初始化，第二个周期寄存器清零，3-34周期执行指令，
+//34周期finish置1
+
 module divu_I_32(
 	input wire clk,
 	input wire [31:0] a_net,

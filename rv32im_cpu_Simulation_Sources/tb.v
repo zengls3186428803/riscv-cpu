@@ -4,7 +4,6 @@ module tb(
 );
 	reg clk;
 	riscv_core core(clk);
-	ff f(clk);
 	integer i;
 	reg [1:0] by;
 	reg [31:0] addr;
@@ -13,7 +12,7 @@ module tb(
 	integer fptr;
 	reg [7:0] x;
 	initial begin
-		fptr = $fopen("/home/zengls/code/c/final_ld.bin","r");
+		fptr = $fopen("/home/zengls/project_1/machine_code/final_ld.bin","r");
 		for(i = 0; i <= 1024*1024-1; i = i + 1 ) begin
 			core.memory.m0.m[i] = 0;
 			core.memory.m1.m[i] = 0;
@@ -40,27 +39,8 @@ module tb(
 				$display("%b",{core.memory.m3.m[i/4],core.memory.m2.m[i/4],core.memory.m1.m[i/4],core.memory.m0.m[i/4]});
 			end
 		end
-		/*
-		for(i = 0; i < 264 && !$feof(fptr); i = i + 1) begin
-			if(i%4 == 0) begin
-				$fread(core.memory.m0.m,fptr,i/4,1);
-			end
-			else if(i%4==1) begin
-				$fread(core.memory.m1.m,fptr,i/4,1);
-			end
-			else if(i%4==2) begin
-				$fread(core.memory.m2.m,fptr,i/4,1);
-			end
-			else if(i%4==3) begin
-				$fread(core.memory.m3.m,fptr,i/4,1);
-				$display("%b",{core.memory.m3.m[i/4],core.memory.m2.m[i/4],core.memory.m1.m[i/4],core.memory.m0.m[i/4]});
-			end
-		end
-        */
 		$fclose(fptr);
-//	end
 
-//	initial begin
 		clk = 0;
 		by = 2'b10;
 		addr = 31'b1101;
@@ -105,10 +85,8 @@ module tb(
 //			clk = ~clk;
 //			#1 ;
 		end
-		//		$display("===============================================\n");
 		//		$display("grg[sp]=%X",core.general_register_group.general_register_group[2]);
 		$display("m[0X100]=%X",{core.memory.m3.m[64],core.memory.m2.m[64],core.memory.m1.m[64],core.memory.m0.m[64]});
 		$display("m[0X104]=%X",{core.memory.m3.m[65],core.memory.m2.m[65],core.memory.m1.m[65],core.memory.m0.m[65]});
-		//		$display("===============================================\n");
 	end
 endmodule
