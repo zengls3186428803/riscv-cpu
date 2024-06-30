@@ -6,15 +6,6 @@
 	- [description for some files](#description-for-some-files)
 		- ["rv32im\_cpu\_Design\_Sources"](#rv32im_cpu_design_sources)
 		- ["machine\_code"](#machine_code)
-	- [设计cpu过程中的问题与解决方法](#设计cpu过程中的问题与解决方法)
-		- [如何设计控制器（Control Unit）？](#如何设计控制器control-unit)
-		- [如何防止竞争冒险？](#如何防止竞争冒险)
-		- [设计CU状态机时使用三段式状态机](#设计cu状态机时使用三段式状态机)
-		- [指令与数据--冯诺依曼结构](#指令与数据--冯诺依曼结构)
-		- [一个寄存器什么时候不需要reset端口？](#一个寄存器什么时候不需要reset端口)
-		- [sel\_xxx(数据选择线) 通过组合逻辑直接控制还是作为CU的一个状态？](#sel_xxx数据选择线-通过组合逻辑直接控制还是作为cu的一个状态)
-		- [如何判断一个多周期部件执行完了？](#如何判断一个多周期部件执行完了)
-		- [多周期部件的初始化](#多周期部件的初始化)
 
 ## Tools used during design and testing
 |tool|download address|role|
